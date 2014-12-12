@@ -1,4 +1,6 @@
-
+/*
+ * Container to hold matrix values for easier management.
+ */
 public class Container {
 	public int value_;
 	public int x_;

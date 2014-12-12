@@ -1,5 +1,15 @@
+/*
+ * Class for finding lowest cost path from F to B.
+ * Logic is based on Shortest Path in Directed Acyclic Graph.
+ * 1. Parsing input from string to matrix.
+ * 2. Char matrix to container matrix for easier management.
+ * 3. Sorting matrix into topologically ordered graph.
+ * 4. Applying Dijkstra’s algorithm.
+ * 5. Finding path.
+ * 6. Generating output.
+ */
+
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 
@@ -186,7 +196,5 @@ public class FindPath {
 
 		return genOutput();
 	}
-
-
 
 }
