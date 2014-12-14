@@ -1,43 +1,26 @@
 /*
- * Class for finding lowest cost path from F to B.
+ * Class for finding lowest cost path from B to F.
  * Logic is based on Shortest Path in Directed Acyclic Graph.
- * 1. Parsing input from string to matrix.
+ * 1. Parsing input.
  * 2. Char matrix to container matrix for easier management.
  * 3. Sorting matrix into topologically ordered graph.
  * 4. Applying Dijkstra’s algorithm.
  * 5. Finding path.
- * 6. Generating output.
+ * 6. Returning output.
  */
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class FindPath {
-	
+public class Mace {
 	private int size;
 	private char[][] in_matrix;
 	private Container[][] cont_matrix;
 	private List<Container> cont_list;
 	
-	public FindPath() {}
+	public Mace() {}
 	
-	private char[][] parseInput(String in) {
-		char[][] t_matrix = new char[size][size];
-		int x, y, counter;
-		
-		counter = 0;
-		
-		for( x = 0; x < size; ++x) {
-			for(y = 0; y < size; ++y) {
-				t_matrix[x][y] = in.charAt(counter);
-				counter++;
-			}
-			counter++;
-		}
-		
-		return t_matrix;
-	}
 	
 	private Container[][] matrixToContainer() {
 		Container[][] matrix = new Container[size][size];
@@ -73,6 +56,9 @@ public class FindPath {
 		return null;
 	}
 	
+	/*
+	 * Filter for list.
+	 */
 	private void addElement(Container in, List<Container> list) {
 		if(in.used_ || in.value_ < 0 || in.value_ > 9)
 			return;
@@ -81,6 +67,10 @@ public class FindPath {
 		list.add(in);
 	}
 	
+	/*
+	 * Every directed edge uv from node u to node v,
+	 * u comes before v in the ordering.
+	 */
 	private List<Container> createToplogicalOrder() {
 		List<Container> temp = new ArrayList<Container>();
 		int counter = 0;
@@ -107,6 +97,9 @@ public class FindPath {
 		return temp;
 	}
 	
+	/*
+	 * If new path is cheaper, replace old path with new path.
+	 */
 	private void calcSum(Container old_cont, Container new_cont) {
 		if((new_cont.value_ < 0 || new_cont.value_ > 9) && new_cont.value_ != 'B')
 			return;
@@ -136,6 +129,9 @@ public class FindPath {
 		}
 	}
 
+	/*
+	 * Find lowest path between nodes.
+	 */
 	private boolean drawPath(Container in) {
 		int x = in.x_;
 		int y = in.y_;
@@ -171,30 +167,35 @@ public class FindPath {
 		return false;
 	}
 
-	private String genOutput() {
-		String temp = new String();
-		temp = "";
-		
-		for(int i = 0; i < size; ++i) {
-			for(int j = 0; j < size; ++j) {
-				temp += in_matrix[i][j];
-			}
-			temp+= "\n";
-		}
-		
-		return temp;
-	}
 
-	public String calculatePath(String in_string, int m_size) {
+	public char[][] solve(char[][] maze) {
 
-		size = m_size;
-		in_matrix = parseInput(in_string);
+		size = maze.length;
+		in_matrix = maze;
 		cont_matrix = matrixToContainer();
 		cont_list = createToplogicalOrder();
 		calcDijkstra(cont_list);
 		drawPath(cont_list.get(cont_list.size() - 1));		
 
-		return genOutput();
+		return in_matrix;
 	}
+}
 
+/*
+ * Container to hold matrix values for easier management.
+ */
+class Container {
+	public int value_;
+	public int x_;
+	public int y_;
+	public int last_sum_;
+	public boolean used_;
+	
+	public Container() {
+		value_ = 0;
+		x_ = 0;
+		y_ = 0;
+		last_sum_ = 0;
+		used_ = false;		
+	}
 }
