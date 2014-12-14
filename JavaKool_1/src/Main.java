@@ -41,7 +41,7 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-		Mace tt = new Mace();
+		Maze tt = new Maze();
 		
 		char[][] array;
 		

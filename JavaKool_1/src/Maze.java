@@ -13,13 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Mace {
+public class Maze {
 	private int size;
 	private char[][] in_matrix;
 	private Container[][] cont_matrix;
 	private List<Container> cont_list;
 	
-	public Mace() {}
+	public Maze() {}
 	
 	
 	private Container[][] matrixToContainer() {
